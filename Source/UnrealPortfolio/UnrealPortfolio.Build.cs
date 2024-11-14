@@ -38,7 +38,10 @@ public class UnrealPortfolio : ModuleRules
             //"RuntimeAudioImporter"
         });
 
-		PrivateDependencyModuleNames.AddRange(new string[] {  });
+		PrivateDependencyModuleNames.AddRange(new string[] {
+            "OnlineSubsystem",
+            "OnlineSubsystemUtils"
+        });
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
         //// opus 외부 라이브러리 추가 
