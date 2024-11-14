@@ -22,7 +22,11 @@ void UMyGameManager::Initialize(FSubsystemCollectionBase& Collection)
 
 	// SaveData 경로 지정 및 로드(재시작)
 
-	// Network Session Task
+	// 파일로 저장된 local profile 정보를 읽어 들인다. 
+
+	// Network Session Task , OnlineSystem 사용시
+
+	// TrainingManager 를 실행(Uobject) , NetworkMangager(GameInstanceSubSystem)를 통해
 
 }
 
