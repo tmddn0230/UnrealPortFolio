@@ -16,7 +16,7 @@ class UNREALPORTFOLIO_API UMyConfig : public UGameInstanceSubsystem
 public:
 	static FString MySettingsFile;
 
-	static FString Solo_MapName;     // Single
+	static FString Single_MapName;     // Single
 	static FString Main_MapName;     // Server 
 	static FString Lobby_MapName;    // AsyncLoading Map
 	static FString Game_MapName;
