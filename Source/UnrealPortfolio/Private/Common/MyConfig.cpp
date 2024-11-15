@@ -9,7 +9,7 @@ DEFINE_LOG_CATEGORY(LogMyConfig);
 // ini 파일 위치
 FString UMyConfig::MySettingsFile = TEXT("My/MySettings.ini");
 
-FString UMyConfig::Solo_MapName;
+FString UMyConfig::Single_MapName;
 FString UMyConfig::Main_MapName;
 FString UMyConfig::Lobby_MapName;
 FString UMyConfig::Game_MapName;
@@ -147,7 +147,7 @@ void UMyConfig::Setting_From_InitFile(const FString& InIni, bool InUseDefaultVau
 
 	if (GConfig) {
 		// Map Name Confirm
-		GConfig->GetString(TEXT("MY_INIT"), TEXT("Solo_MapName"), Solo_MapName, InIni);
+		GConfig->GetString(TEXT("MY_INIT"), TEXT("Single_MapName"), Single_MapName, InIni);
 		GConfig->GetString(TEXT("MY_INIT"), TEXT("Main_MapName"), Main_MapName, InIni);
 		GConfig->GetString(TEXT("MY_INIT"), TEXT("Lobby_MapName"), Lobby_MapName, InIni);
 		GConfig->GetString(TEXT("MY_INIT"), TEXT("Game_MapName"),  Game_MapName, InIni);
