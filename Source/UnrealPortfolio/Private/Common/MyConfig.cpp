@@ -46,6 +46,10 @@ FString UMyConfig::ResultDetailPath;
 // nation Cde
 int32   UMyConfig::NationCode;
 
+// Play Init Settings
+FPlayInitSetting UMyConfig::PlayInitSettings;
+
+
 void UMyConfig::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
@@ -167,3 +171,7 @@ void UMyConfig::Setting_From_InitFile(const FString& InIni, bool InUseDefaultVau
 }
 
 
+const FName& UMyConfig::Get_ServerLevel()
+{
+	return PlayInitSettings.ServerIptoName;
+}

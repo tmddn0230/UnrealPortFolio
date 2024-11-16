@@ -8,9 +8,6 @@
 namespace MyString_Option
 {
 	const FString PlayerType     = FString(L"PlayerType");
-	const FString PlayerName     = FString(L"PlayerName");
-	const FString PlayerId       = FString(L"PlayerId");
-	const FString PlayerPassword = FString(L"PlayerPassword");
 	const FString DeviceName     = FString(L"DeviceName");
 	const FString DeviceId       = FString(L"DeviceId");
 }
@@ -29,9 +26,6 @@ void FTraineeInfo_Login::Set_Options(const FString& option_p)
 		PlayerType = (EUP_PlayType)temp_interger;
 	}
 
-	PlayerName     = UGameplayStatics::ParseOption(option_p, MyString_Option::PlayerName);
-	PlayerId       = UGameplayStatics::ParseOption(option_p, MyString_Option::PlayerId);
-	PlayerPassword = UGameplayStatics::ParseOption(option_p, MyString_Option::PlayerPassword);
 	DeviceName     = UGameplayStatics::ParseOption(option_p, MyString_Option::DeviceName);
 	DeviceId       = UGameplayStatics::ParseOption(option_p, MyString_Option::DeviceId);
 }

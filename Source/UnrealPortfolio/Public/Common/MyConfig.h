@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
+// Common
+#include "Common/MyRpcCommon.h"
 #include "MyConfig.generated.h"
 
 UNREALPORTFOLIO_API DECLARE_LOG_CATEGORY_EXTERN(LogMyConfig, Log, All);
@@ -53,14 +55,21 @@ public:
 	// nation
 	static int32 NationCode;
 
+	// PlayInitSetting
+	static FPlayInitSetting PlayInitSettings;
+
 // Functions
 public:
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 	virtual void Deinitialize() override;
 
+	// Load
 	static bool LoadXMLFile();
 	static void Setting_From_xmlFile(const FString& TempTag, const FString& TempString);
 	static void Setting_From_InitFile(const FString& InIni, bool InUseDefaultVaule);
 	static void LoadINIFile();
+
+	// Get
+	static const FName& Get_ServerLevel();
 
 };

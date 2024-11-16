@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <IpSetting>
-  <!-- <ServerIp>192.168.10.18</ServerIp> -->
-  <ServerIp>192.168.0.20</ServerIp>
+  <!-- <ServerIp>127.0.0.1</ServerIp> -->
+  <ServerIp>127.0.0.1</ServerIp>
   <WebMainUrl>http://192.168.0.20/ARTS/main.aspx</WebMainUrl>
   <WebDownUrl>http://192.168.0.20/ARTS/download.aspx</WebDownUrl>
   <WebRepUpUrl>http://192.168.0.20/ARTS/upload_voice.aspx</WebRepUpUrl>

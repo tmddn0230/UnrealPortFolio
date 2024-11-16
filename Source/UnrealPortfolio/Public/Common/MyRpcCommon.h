@@ -8,12 +8,9 @@
 
 namespace MyString_Option
 {
-	extern RSGAMECORE_API const FString PlayerType;
-	extern RSGAMECORE_API const FString PlayerName;
-	extern RSGAMECORE_API const FString PlayerId;
-	extern RSGAMECORE_API const FString PlayerPassword;
-	extern RSGAMECORE_API const FString DeviceName;
-	extern RSGAMECORE_API const FString DeviceId;
+	extern UNREALPORTFOLIO_API const FString PlayerType;
+	extern UNREALPORTFOLIO_API const FString DeviceName;
+	extern UNREALPORTFOLIO_API const FString DeviceId;
 }
 
 
