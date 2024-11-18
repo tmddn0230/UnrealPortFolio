@@ -3,3 +3,17 @@
 
 #include "Data/MyTableManager.h"
 
+UMyTableManager::UMyTableManager()
+{
+
+}
+
+void UMyTableManager::Initialize(FSubsystemCollectionBase& Collection)
+{
+
+}
+
+void UMyTableManager::Deinitialize()
+{
+
+}

@@ -6,6 +6,11 @@
 #include "Framework/MyGameMode.h"
 #include "Framework/MyGameHUD.h"
 
+void AMyPlayerController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+}
+
 AMyGameMode* AMyPlayerController::Get_GameMode()
 {
 	UWorld* World = GetWorld();
@@ -22,4 +27,12 @@ AMyGameHUD* AMyPlayerController::Get_HUD()
 AMyPlayerState* AMyPlayerController::Get_PlayerState()
 {
 	return Cast<AMyPlayerState>(PlayerState);
+}
+
+EUP_PlayType AMyPlayerController::Get_PlayType()
+{
+	if (auto* playState = Get_PlayerState()) {
+		return playState->PlayType;
+	}
+	return EUP_PlayType::E_None;
 }
