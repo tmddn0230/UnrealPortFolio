@@ -14,4 +14,16 @@ class UNREALPORTFOLIO_API UMyUI_PageBase : public UMyUI_UserWidget
 {
 	GENERATED_BODY()
 	
+public:
+	// BPCall
+	UFUNCTION(BlueprintCallable)	UMyUI_PageBase* BPCall_Open_Popup(const FName& InName);
+	UFUNCTION(BlueprintCallable)	bool            BPCall_Close_Popup(UMyUI_PageBase* InPage);
+	UFUNCTION(BlueprintCallable)	UMyUI_PageBase* BPCall_Open_Page(const FName& InName);
+	
+	// virtual redefine
+	virtual UMyUI_PageBase* Open_Popup(const FName& InName);
+	virtual bool            Close_Popup(UMyUI_PageBase* InPage);
+	virtual UMyUI_PageBase* Open_Page(const FName& InName);
+	virtual void            Close_Page();
+	
 };

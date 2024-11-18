@@ -31,7 +31,20 @@ public:
 	virtual bool Initialize() override;
 	virtual void BeginDestroy() override;
 	
-	bool Close_Popup(UMyUI_PageBase* InWidget);
+private:
+	void            Inter_Change_PageWidget(UUserWidget* InWidget);
+	void            Inter_Add_PopupWidget(UMyUI_PageBase* InWidget);
+	void            Inter_Remove_PopupWidget(UUserWidget* InWidget);
+
+	// Open / Close
+	bool            Close_Popup(UMyUI_PageBase* InWidget);
 	UMyUI_PageBase* Open_Page(const FName& InName, bool InPopup, APlayerController* InPC, UUserWidget* InConnection);
 	
+	UMyUI_PageBase* Inter_Open_Page(const FName& InName, TSubclassOf<UUserWidget> UserWidgetClass, APlayerController* InPC, UUserWidget* InConnection);
+	UMyUI_PageBase* Inter_Open_Popup(const FName& InName, TSubclassOf<UUserWidget> UserWidgetClass, APlayerController* InPC, UUserWidget* InConnection);
+
+
+	// Get
+
+
 };

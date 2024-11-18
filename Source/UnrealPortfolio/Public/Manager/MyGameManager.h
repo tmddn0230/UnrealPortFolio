@@ -16,7 +16,7 @@ UNREALPORTFOLIO_API DECLARE_LOG_CATEGORY_EXTERN(LogPlayerInfo, Log, All);
 class AMyPlayerController;
 class AMyPlayerState;
 class AMyGameState;
-
+class UMyTableManager;
 
 UCLASS()
 class UNREALPORTFOLIO_API UMyGameManager : public UGameInstanceSubsystem
@@ -39,7 +39,8 @@ public:
 	UMyGameManager();
 
 	//Get
-	EUP_PlayType Get_PlayType() { return Play_Type; }
+	EUP_PlayType     Get_PlayType() { return Play_Type; }
+	UMyTableManager* Get_TableManager();
 
 	// Main Flow
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
@@ -51,7 +52,6 @@ public:
 	void Quit_Program();
 
 	void Start_PlayMode();
-
 	/*
 	* 메뉴에서 실행할 때 밑의 함수들을 바로 호출한다.
 	*/
@@ -61,4 +61,5 @@ public:
 	UFUNCTION(BlueprintCallable) void Start_Control();
 	UFUNCTION(BlueprintCallable) void Start_Observer(const FString& InDeviceName);
 	UFUNCTION(BlueprintCallable) void Start_Replay (const FString& TrainingID, const FString& UserID, const FString& ScenarioName);
+	
 };

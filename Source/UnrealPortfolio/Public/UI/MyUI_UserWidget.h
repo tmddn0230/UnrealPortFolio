@@ -31,5 +31,7 @@ public:
 	bool IsLocalPlayer();
 	bool IsLocalConllerPlayType();
 
-
+	
+	TWeakObjectPtr<UUserWidget> Connection_Widget;
+	FName Widget_Name = "";
 };

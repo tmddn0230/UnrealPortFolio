@@ -7,12 +7,19 @@
 // Common
 #include "Common/MyConfig.h"
 #include "Common/MyRpcCommon.h"
+// Manager
+#include "Data/MyTableManager.h"
 
 DEFINE_LOG_CATEGORY(LogPlayerInfo);
 DEFINE_LOG_CATEGORY(LogGameManager);
 
 UMyGameManager::UMyGameManager()
 {
+}
+
+UMyTableManager* UMyGameManager::Get_TableManager()
+{
+	return GetGameInstance()->GetSubsystem<UMyTableManager>();
 }
 
 void UMyGameManager::Initialize(FSubsystemCollectionBase& Collection)
