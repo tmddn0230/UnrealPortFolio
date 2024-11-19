@@ -4,13 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameStateBase.h"
+// Sphinx
+#include "SpeechRecognitionGameStateBase.h"
 #include "MyGameState.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class UNREALPORTFOLIO_API AMyGameState : public AGameStateBase
+class UNREALPORTFOLIO_API AMyGameState : public ASpeechRecognitionGameStateBase
 {
 	GENERATED_BODY()
 

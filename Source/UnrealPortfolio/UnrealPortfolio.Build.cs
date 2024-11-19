@@ -33,7 +33,8 @@ public class UnrealPortfolio : ModuleRules
             "Sockets",
             "AudioMixer",
             "AudioCapture",
-            "Voice"
+            "Voice",
+            "SpeechRecognition"
             //"ZipUtility",
             //"RuntimeAudioImporter"
         });

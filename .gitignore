@@ -1,7 +1,23 @@
 
-Intermediate/
-Saved/
-Binaries/
-.vs/
-*.sln/
+# 언리얼 엔진 생성 파일
+/Binaries/
+/Build/
+/DerivedDataCache/
+/Intermediate/
+/Saved/
+
+# 비주얼 스튜디오 파일
+*.vs/
+*.suo
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.opendb
+
+# 솔루션 파일
+*.sln
+
+UnrealPortfolio.sln
+Plugins/*/Binaries/
+Plugins/*/Intermediate/
 UnrealPortfolio.sln
