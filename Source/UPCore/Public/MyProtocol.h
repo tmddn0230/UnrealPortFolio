@@ -41,8 +41,6 @@ enum enProtocol
 	prStartReq,		prStartAck,
 	prFinish,       prReady,
 	prAccident,
-	prSctEvent,		prInteractKey,
-	prTraineeAim,	prTraineeShot,
 	prDayNight,     
 	prRestartSame,  prRestartAll,
 	PROTOCOL_END,
