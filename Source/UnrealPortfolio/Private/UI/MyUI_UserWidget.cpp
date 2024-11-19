@@ -11,6 +11,8 @@
 #include "Framework/MyPlayerState.h"
 // Manager
 #include "Manager/MyGameManager.h"
+// Network
+#include "Network/MyHttpManager.h"
 
 
 UMyGameManager* UMyUI_UserWidget::GetGameManager()
@@ -43,6 +45,14 @@ AMyGameHUD* UMyUI_UserWidget::Get_HUD()
 	if (auto* pc = Get_PlayerController()) {
 		return pc->Get_HUD();
 	}
+	return nullptr;
+}
+
+UMyHttpManager* UMyUI_UserWidget::GetHttpManager()
+{
+	if (auto* gi = GetGameInstance())
+		return gi->GetSubsystem<UMyHttpManager>();
+
 	return nullptr;
 }
 

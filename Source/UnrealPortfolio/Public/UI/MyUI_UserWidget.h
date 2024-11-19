@@ -12,6 +12,8 @@ class AMyGameState;
 class AMyGameHUD;
 class AMyGameMode;
 
+class UMyHttpManager;
+
 UCLASS()
 class UNREALPORTFOLIO_API UMyUI_UserWidget : public UUserWidget
 {
@@ -25,6 +27,7 @@ public:
 	AMyGameState*        Get_GameState();
 	AMyGameMode*         Get_GameMode();
 	AMyGameHUD*          Get_HUD();
+	UMyHttpManager*      GetHttpManager();
 
 	// bool Check : Player
 	bool IsControl_PlayType();

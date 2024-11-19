@@ -118,6 +118,7 @@ void UMyNetworkManager::SendPacket(stHeader* packetData)
 	}
 }
 
+
 void UMyNetworkManager::SendPacket_Login(FString playerObjectID, enRole Role)
 {
 	stLoginReq packetStruct;

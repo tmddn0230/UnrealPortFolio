@@ -13,6 +13,10 @@ class AMyGameMode;
 class AMyGameHUD;
 class AMyPlayerState;
 
+// Widget
+class UMyUI_PageBase;
+class UMyUI_PrimaryLayout;
+
 UCLASS()
 class UNREALPORTFOLIO_API AMyPlayerController : public APlayerController
 {
@@ -29,4 +33,8 @@ public:
 	AMyPlayerState* Get_PlayerState();
 	EUP_PlayType    Get_PlayType();
 
+	// UI
+	UMyUI_PageBase* Open_Page(const FName& InName);
+	UMyUI_PageBase* Open_Popup(const FName& InName);
+	bool            Close_Popup(UMyUI_PageBase* InPage);
 };

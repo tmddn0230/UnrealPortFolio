@@ -82,6 +82,7 @@ struct stHeader
 #endif
 };
 
+
 struct stVoiceHeader
 {
 	uint16 nCompressedSize;
@@ -118,5 +119,78 @@ struct stVoiceHeader
 
 #define HEADSIZE  sizeof( stHeader )
 #define VHEADSIZE sizeof( stVoiceHeader )
+
+
+////////////////////////////////////////////////
+//////             Http Web              //////
+//////////////////////////////////////////////
+UENUM()
+enum class ELogProtocol
+{
+	// protocol, TID , UID
+	LOG_START = 0,
+	LOG_FIRE,                // 사격
+	LOG_HIT,                 // 적중
+	LOG_CHALLENGE,           // 수하
+	LOG_SURRENDER,           // 투항명령
+	LOG_BIND,                // 포박
+	LOG_COMMANDMOVE,         // 이동지시
+	LOG_BREIFSITUATION,      // 상황보고
+	LOG_CALL,                // 증원요청
+	LOG_EOD,			     // EOD 요청
+	LOG_BADFIRE,             // 오인사격
+	//-----------------------------------------------------
+
+	LOG_TR_HMD,              // transform  x y z p r w {"x":"0.0","y":"0.0","z":"0.0","p":"0.0","r":"0.0","w":"0.0"}
+	LOG_TR_GUN,              // transform  x y z p r w {"x":"0.0","y":"0.0","z":"0.0","p":"0.0","r":"0.0","w":"0.0"}
+
+	LOG_DISTANCE,            // float 훈련 종료 시 클라 -> 웹로그 호출
+
+	LOG_MOTION,             // tid uid motion( json )
+	LOG_OBJECT,             // tid motion
+	LOG_END
+};
+
+enum class EWebProtocolType
+{
+	webErrorServerCheck = -5,
+	webErrorBlock = -4,
+	WebError = -3,	//webError
+	webErrorDup = -2,
+	webErrorParse = -1,
+	WEB_PROTOCOL_START = 0,
+	//-----------------------------------------------------
+
+	webGetSCTList,
+	webGetMCTList,
+	webGetWCTList,
+	webGetTCTList,
+	webGetFBXList,
+	webGetPNGList,
+	webGetWAVList,
+	webGetFBXAnimList,  //8
+	webGetEffList,
+	webGetAllFileList, // 
+
+	webLogin,  //webLogin  11 
+	webGetMachineList,
+	webGetUserList,
+
+	webStart,            // 14
+	webFinish,
+	webEnterUser,
+	webTrainingUserList,
+	webTrainingDetail,
+	//-----------------------------------------------------
+	webGetMotionLog,   //19, TID, UID
+	webGetVoiceList,   // TID, recv i
+	webGetObjectLog,   // TID
+	WEB_PROTOCOL_END,  //WEB_PROTOCOL_END
+};
+
+
+
+
+
 
 #pragma pack()

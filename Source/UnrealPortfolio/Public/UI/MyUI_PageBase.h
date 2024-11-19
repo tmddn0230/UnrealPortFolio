@@ -6,9 +6,9 @@
 #include "UI/MyUI_UserWidget.h"
 #include "MyUI_PageBase.generated.h"
 
-/**
- * 
- */
+// Log
+UNREALPORTFOLIO_API DECLARE_LOG_CATEGORY_EXTERN(LogPage_Base, Log, All);
+
 UCLASS()
 class UNREALPORTFOLIO_API UMyUI_PageBase : public UMyUI_UserWidget
 {
