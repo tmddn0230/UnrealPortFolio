@@ -21,3 +21,6 @@ UnrealPortfolio.sln
 Plugins/*/Binaries/
 Plugins/*/Intermediate/
 UnrealPortfolio.sln
+Build/Windows/FileOpenOrder/CookerOpenOrder.log
+Build/Windows/FileOpenOrder/EditorOpenOrder.log
+UnrealPortfolio.sln
