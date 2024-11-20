@@ -7,6 +7,7 @@
 // Network
 #include "Network/MyHttpManager.h"
 
+
 void UMy_Login::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();

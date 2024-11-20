@@ -27,6 +27,9 @@ public:
 	FString ServerIp;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 NationCode;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 PlayViewMode;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
@@ -37,6 +40,7 @@ public:
 
 	FPlayInitSetting() :
 		ServerIp(""),
+		NationCode(0),
 		PlayViewMode(0),
 		TrackerGroupId(0),
 		bDefaultData(true)

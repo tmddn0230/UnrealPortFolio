@@ -25,13 +25,16 @@ UMyUI_PageBase* UMyUI_PageBase::BPCall_Open_Page(const FName& InName)
 
 UMyUI_PageBase* UMyUI_PageBase::Open_Popup(const FName& InName)
 {
+    if (auto* pc = Get_PlayerController()) {
+        return pc->Open_Popup(InName);
+    }
     return nullptr;
 }
 
 bool UMyUI_PageBase::Close_Popup(UMyUI_PageBase* InPage)
 {
     if (auto* pc = Get_PlayerController()) {
-        //return pc->Close_Popup(InPage);
+        return pc->Close_Popup(InPage);
     }
     return false;
 }
@@ -39,11 +42,22 @@ bool UMyUI_PageBase::Close_Popup(UMyUI_PageBase* InPage)
 UMyUI_PageBase* UMyUI_PageBase::Open_Page(const FName& InName)
 {
     if (auto* pc = Get_PlayerController()) {
-        //return pc->Open_Page(InName);
+        return pc->Open_Page(InName);
     }
     return nullptr;
 }
 
 void UMyUI_PageBase::Close_Page()
 {
+    // Todo
+}
+
+void UMyUI_PageBase::Post_OpenPage()
+{
+    // 필요하면 붙여서.. 
+}
+
+void UMyUI_PageBase::Deactivate_Widget()
+{
+    Close_Popup(this);
 }

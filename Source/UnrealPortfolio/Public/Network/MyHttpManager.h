@@ -27,11 +27,12 @@ class UNREALPORTFOLIO_API UMyHttpManager : public UGameInstanceSubsystem
 
 public:
 	// URL
-	FString WebUrl = "";
-	FString ScenarioUrl = "";
-	FString ReplayUploadUrl = "";
-	FString ReplayDownloadUrl = "";
-	FString WebLogUrl = "";
+	FString HttpBase = "";
+	FString MainURL = "";
+	FString TemplateDownURL = "";
+	FString VoiceUploadURL = "";
+	FString VoiceDownloadURL = "";
+	FString LogURL = "";
 
 
 	// Delegate Handle
@@ -41,20 +42,14 @@ protected:
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 
 public:
+	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> SetRequestOptions(const FString& URL);
+	FString                                       GetContentString(const TSharedRef<FJsonObject>& requestObj);
 
 	// Request
-	void RequestWeb(const FString& URL, const EWebProtocolType& protocol);
-	void RequestWeb_OneParam(const FString& URL, const EWebProtocolType& protocol, const FString& ParamName, const FString& param1);
-	void RequestWeb_TwoParam(const FString& URL, const EWebProtocolType& protocol, const FString& ParamName1, const FString& param1, const FString& ParamName2, const FString& param2);
+	void Login(const FString& InID, const FString& InPassword);
 
 	// Respond
-	void OnResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
-	void OnResponse_OneParam(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
-	void OnResponse_TwoParam(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+	void OnResponse_Login(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
-	// Case
-	void ProcessbyCase(int32 protocol, TSharedPtr<FJsonObject> ResultObject, TSharedRef<TJsonReader<>> resultReader);
-
-	void Login(const FString& InID, const FString& InPassword);
 
 };

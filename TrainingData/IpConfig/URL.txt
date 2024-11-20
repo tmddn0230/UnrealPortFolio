@@ -1,0 +1,5 @@
+  <WebMainUrl>http://192.168.0.20/ARTS/main.aspx</WebMainUrl>
+  <WebDownUrl>http://192.168.0.20/ARTS/download.aspx</WebDownUrl>
+  <WebRepUpUrl>http://192.168.0.20/ARTS/upload_voice.aspx</WebRepUpUrl>
+  <WebRepDnUrl>http://192.168.0.20/ARTS/download_voice.aspx</WebRepDnUrl>
+  <WebLogUrl>http://192.168.0.20/ARTS/logmain.aspx</WebLogUrl>

@@ -12,79 +12,54 @@ void UMyHttpManager::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
 	// Init
-	WebUrl            = UMyConfig::WebServerUrl;
-	ScenarioUrl       = UMyConfig::WebScenarioUrl;
-	WebLogUrl         = UMyConfig::WebLogUrl;
-	ReplayUploadUrl   = UMyConfig::WebReplayUploadUrl;
-	ReplayDownloadUrl = UMyConfig::WebReplayDownloadUrl;
+	HttpBase         = UMyConfig::HttpBaseURL;
+	MainURL          = HttpBase + "main.aspx";
+	TemplateDownURL  = HttpBase + "download.aspx";
+	LogURL           = HttpBase + "logmain.aspx";
+	VoiceUploadURL   = HttpBase + "upload_voice.aspx";
+	VoiceDownloadURL = HttpBase + "download_voice.aspx";
 }
 
-void UMyHttpManager::RequestWeb(const FString& URL, const EWebProtocolType& protocol)
+TSharedRef<IHttpRequest, ESPMode::ThreadSafe> UMyHttpManager::SetRequestOptions(const FString& URL)
 {
-	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> UserRequest = FHttpModule::Get().CreateRequest();
+	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = FHttpModule::Get().CreateRequest();
 
-	UserRequest->OnProcessRequestComplete().BindUObject(this, &UMyHttpManager::OnResponse);
-	UserRequest->SetURL(URL);
-	UserRequest->SetVerb("POST");
-	UserRequest->SetHeader("Content-Type", TEXT("application/x-www-form-urlencoded"));
+	Request->SetURL(URL);
+	Request->SetVerb("POST");
+	Request->SetHeader("Content-Type", TEXT("application/x-www-form-urlencoded"));
+
+	return Request;
+}
+
+FString UMyHttpManager::GetContentString(const TSharedRef<FJsonObject>& requestObj )
+{
+	FString RequestBody;
+	TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&RequestBody);
+	FJsonSerializer::Serialize(requestObj, Writer);
+
+	return RequestBody;
+}
+
+
+void UMyHttpManager::Login(const FString& InID, const FString& InPassword)
+{
+	// Main
+	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> UserRequest = SetRequestOptions(MainURL);
+	UserRequest->OnProcessRequestComplete().BindUObject(this, &UMyHttpManager::OnResponse_Login);
 
 	TSharedRef<FJsonObject> RequestObj = MakeShared<FJsonObject>();
 
-	RequestObj->SetStringField("protocol", FString::FromInt((int32)protocol)); 
+	RequestObj->SetStringField("protocol", FString::FromInt((int32)EWebProtocolType::webLogin));
+	RequestObj->SetStringField("account", InID);
+	RequestObj->SetStringField("pass", InPassword);
 
-	FString RequestBody;
-	TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&RequestBody);
-	FJsonSerializer::Serialize(RequestObj, Writer);
-	UserRequest->SetContentAsString(RequestBody);
+	UserRequest->SetContentAsString(GetContentString(RequestObj));
 	UserRequest->ProcessRequest();
+
+	UE_LOG(LogMyHttpManager, Warning, TEXT("Login Request Called"));
 }
 
-void UMyHttpManager::RequestWeb_OneParam(const FString& URL, const EWebProtocolType& protocol, const FString& ParamName, const FString& param1)
-{
-	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> UserRequest = FHttpModule::Get().CreateRequest();
-
-	UserRequest->OnProcessRequestComplete().BindUObject(this, &UMyHttpManager::OnResponse_OneParam);
-	UserRequest->SetURL(URL);
-	UserRequest->SetVerb("POST");
-	UserRequest->SetHeader("Content-Type", TEXT("application/x-www-form-urlencoded"));
-
-	TSharedRef<FJsonObject> RequestObj = MakeShared<FJsonObject>();
-
-	RequestObj->SetStringField("protocol", FString::FromInt((int32)protocol));
-	RequestObj->SetStringField(ParamName, param1);
-
-	FString RequestBody;
-	TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&RequestBody);
-	FJsonSerializer::Serialize(RequestObj, Writer);
-	UserRequest->SetContentAsString(RequestBody);
-	UserRequest->ProcessRequest();
-}
-
-void UMyHttpManager::RequestWeb_TwoParam(const FString& URL, const EWebProtocolType& protocol, const FString& ParamName1, const FString& param1, const FString& ParamName2, const FString& param2)
-{
-	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> UserRequest = FHttpModule::Get().CreateRequest();
-
-	UserRequest->OnProcessRequestComplete().BindUObject(this, &UMyHttpManager::OnResponse_OneParam);
-	UserRequest->SetURL(URL);
-	UserRequest->SetVerb("POST");
-	UserRequest->SetHeader("Content-Type", TEXT("application/x-www-form-urlencoded"));
-
-	TSharedRef<FJsonObject> RequestObj = MakeShared<FJsonObject>();
-
-	RequestObj->SetStringField("protocol", FString::FromInt((int32)protocol));
-	RequestObj->SetStringField(ParamName1, param1);
-	RequestObj->SetStringField(ParamName2, param2);
-
-	FString RequestBody;
-	TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&RequestBody);
-	FJsonSerializer::Serialize(RequestObj, Writer);
-	UserRequest->SetContentAsString(RequestBody);
-	UserRequest->ProcessRequest();
-}
-
-
-
-void UMyHttpManager::OnResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+void UMyHttpManager::OnResponse_Login(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
 	if (Response == nullptr) return;
 	if (!bWasSuccessful) return;
@@ -106,39 +81,12 @@ void UMyHttpManager::OnResponse(FHttpRequestPtr Request, FHttpResponsePtr Respon
 		FString Result = JsonObject->GetStringField("result");
 		TSharedRef<TJsonReader<>> resultReader = TJsonReaderFactory<>::Create(Result);
 
-		ProcessbyCase(protocol, ResultObject, resultReader);
-	}
-}
-
-void UMyHttpManager::OnResponse_OneParam(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
-{
-}
-
-void UMyHttpManager::OnResponse_TwoParam(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
-{
-}
-
-
-
-
-void UMyHttpManager::ProcessbyCase(int32 protocol, TSharedPtr<FJsonObject> ResultObject, TSharedRef<TJsonReader<>> resultReader)
-{
-	switch (protocol)
-	{
-	case 11:  // Login
 		if (FJsonSerializer::Deserialize(resultReader, ResultObject))
 		{
 			// Get Login Result
 			int32 ResultValue = ResultObject->GetIntegerField(TEXT("RESULT"));
-		    // Process Login On Widget
+			// Process Login On Widget
 			Handle_LoginCheck.Broadcast(ResultValue);
 		}
-		break;
 	}
-}
-
-
-void UMyHttpManager::Login(const FString& InID, const FString& InPassword)
-{
-	RequestWeb_TwoParam(WebUrl, EWebProtocolType::webLogin, "account", InID, "pass", InPassword);
 }

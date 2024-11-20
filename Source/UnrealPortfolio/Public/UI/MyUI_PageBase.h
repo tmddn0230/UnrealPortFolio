@@ -20,10 +20,13 @@ public:
 	UFUNCTION(BlueprintCallable)	bool            BPCall_Close_Popup(UMyUI_PageBase* InPage);
 	UFUNCTION(BlueprintCallable)	UMyUI_PageBase* BPCall_Open_Page(const FName& InName);
 	
-	// virtual redefine
+	// virtual 
 	virtual UMyUI_PageBase* Open_Popup(const FName& InName);
 	virtual bool            Close_Popup(UMyUI_PageBase* InPage);
 	virtual UMyUI_PageBase* Open_Page(const FName& InName);
-	virtual void            Close_Page();
-	
+	virtual void            Close_Page();	
+	virtual void            Post_OpenPage();
+
+
+	void                    Deactivate_Widget();
 };

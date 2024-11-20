@@ -6,7 +6,13 @@
 #include "GameFramework/HUD.h"
 #include "MyGameHUD.generated.h"
 
+class UMyGameManager;
+class UMyTableManager;
+
 class UMyLocalPlayer;
+class AMyPlayerController;
+class UMyUI_PageBase;
+class UMyUI_PrimaryLayout;
 
 UCLASS()
 class UNREALPORTFOLIO_API AMyGameHUD : public AHUD
@@ -21,6 +27,8 @@ private:
 	FColor HUDLight;
 	float ScaleUI;
 	
+	TWeakObjectPtr<UMyUI_PrimaryLayout> Primary_Layout;
+
 public:
 	AMyGameHUD();
 	// Open
@@ -31,9 +39,20 @@ public:
 	void RegisterExtensionPointForPlayerState(UMyLocalPlayer* InLocalPlayer, APlayerState* InPlayerState);
 	void Open_HUDWidget();
 
+	// UI Widget 
+	bool             Init_PrimaryLayer();
+	UMyUI_PageBase*  Open_Page(const FName& InName, bool InPopup);
+	bool             Close_Popup(UMyUI_PageBase* InPage);
+
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason);
 	
+public:
+	// Get
+	UMyGameManager*      Get_GameManager();
+	UMyTableManager*     Get_TableManager();
+	AMyPlayerController* Get_PlayerController();
 
 };

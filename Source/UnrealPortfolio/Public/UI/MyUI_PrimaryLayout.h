@@ -36,12 +36,14 @@ private:
 	void            Inter_Add_PopupWidget(UMyUI_PageBase* InWidget);
 	void            Inter_Remove_PopupWidget(UUserWidget* InWidget);
 
+	UMyUI_PageBase* Inter_Open_Page(const FName& InName, TSubclassOf<UUserWidget> UserWidgetClass, APlayerController* InPC, UUserWidget* InConnection);
+	UMyUI_PageBase* Inter_Open_Popup(const FName& InName, TSubclassOf<UUserWidget> UserWidgetClass, APlayerController* InPC, UUserWidget* InConnection);
+
+public:
 	// Open / Close
 	bool            Close_Popup(UMyUI_PageBase* InWidget);
 	UMyUI_PageBase* Open_Page(const FName& InName, bool InPopup, APlayerController* InPC, UUserWidget* InConnection);
 	
-	UMyUI_PageBase* Inter_Open_Page(const FName& InName, TSubclassOf<UUserWidget> UserWidgetClass, APlayerController* InPC, UUserWidget* InConnection);
-	UMyUI_PageBase* Inter_Open_Popup(const FName& InName, TSubclassOf<UUserWidget> UserWidgetClass, APlayerController* InPC, UUserWidget* InConnection);
 
 
 	// Get

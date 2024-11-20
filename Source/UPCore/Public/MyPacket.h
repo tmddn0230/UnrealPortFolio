@@ -119,50 +119,6 @@ struct stAccident : public stHeader
 	}
 };
 
-struct stSctEvent : public stHeader
-{
-	int16 SctEventID[64];
-	stSctEvent()
-	{
-		memset(SctEventID, 0x00, sizeof(SctEventID));
-		SetHeader(prSctEvent, sizeof(stSctEvent));
-	}
-};
-
-struct stInteractKey : public stHeader
-{
-	int32 PlayerID = 0;
-	stInteractKey()
-	{
-		SetHeader(prInteractKey, sizeof(stInteractKey));
-	}
-};
-
-struct stTraineeAim : public stHeader
-{
-	int32 PlayerID = 0;
-	int16 ObjectID[64];
-	stTraineeAim()
-	{
-		memset(ObjectID, 0x00, sizeof(ObjectID));
-		SetHeader(prTraineeAim, sizeof(stTraineeAim));
-	}
-};
-
-
-#if UE_BUILD_DEBUG + UE_BUILD_DEVELOPMENT + UE_BUILD_TEST + UE_BUILD_SHIPPING >= 1
-struct stTraineeShot : public stHeader
-{
-	int32 PlayerID = 0;
-	int16 ObjectID[64];
-	FVector HitPosition = FVector::ZeroVector;
-	stTraineeShot()
-	{
-		memset(ObjectID, 0x00, sizeof(ObjectID));
-		SetHeader(prTraineeShot, sizeof(stTraineeShot));
-	}
-};
-#endif
 
 struct stDayNight : public stHeader
 {

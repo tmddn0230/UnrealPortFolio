@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "Http.h"
 #include "JsonFunctionLib.generated.h"
 
 /**
@@ -36,8 +37,11 @@ public:
 	 * @param OutInfoMessage    More Information about the action's result
 	 */
 	static void WriteJson(FString JsonFilePath, TSharedPtr<FJsonObject> JsonObject, bool& bOutSucssess, FString& OutInfoMessage);
-	
 
+	template <typename StructType>
+	void GetJsonStringFromStruct(StructType FilledStruct, FString& StringOutput);
+	template <typename StructType>
+	void GetStructFromJsonString(FHttpResponsePtr Response, StructType& StructOutput);
 
 
 	template<typename T>

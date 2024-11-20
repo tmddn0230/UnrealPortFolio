@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<IpSetting>
+  <ServerIp>127.0.0.1</ServerIp>
+  <HttpBaseURL>http://192.168.0.20/ARTS/</HttpBaseURL>
+  <TCPSocketIp>192.168.0.20</TCPSocketIp>
+  <UDPSocketIp>192.168.0.20</UDPSocketIp>
+  <NationCode>1</NationCode>
+  <!-- NationCode Eng 1, Kor 82, Jpn 81, Chi 86 -->
+</IpSetting>
+

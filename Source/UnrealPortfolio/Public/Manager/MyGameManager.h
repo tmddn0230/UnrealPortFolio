@@ -17,6 +17,7 @@ class AMyPlayerController;
 class AMyPlayerState;
 class AMyGameState;
 class UMyTableManager;
+class UMyModeDefinition;
 
 UCLASS()
 class UNREALPORTFOLIO_API UMyGameManager : public UGameInstanceSubsystem
@@ -34,6 +35,8 @@ private:
 
 public:
 	TArray<IConsoleObject*> AuditCmds;     // 콘솔 명령용 
+
+	TObjectPtr<UMyModeDefinition> ModeDefinition;
 
 public:
 	UMyGameManager();

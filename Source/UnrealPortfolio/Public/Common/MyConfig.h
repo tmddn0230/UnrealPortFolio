@@ -27,12 +27,8 @@ public:
 	static int32   Device_Index;
 	
 	// Url
-	static FString ListenUrl;
-	static FString WebServerUrl;
-	static FString WebScenarioUrl;
-	static FString WebReplayUploadUrl;
-	static FString WebReplayDownloadUrl;
-	static FString WebLogUrl;
+	static FString ListenIP;
+	static FString HttpBaseURL;
 
 	// Socket
 	static FString TCPSocketIP;
@@ -65,11 +61,11 @@ public:
 
 	// Load
 	static bool LoadXMLFile();
-	static void Setting_From_xmlFile(const FString& TempTag, const FString& TempString);
+	static FPlayInitSetting Setting_From_xmlFile(const FString& TempTag, const FString& TempString);
 	static void Setting_From_InitFile(const FString& InIni, bool InUseDefaultVaule);
 	static void LoadINIFile();
 
 	// Get
 	static const FName& Get_ServerLevel();
-
+	static const int32 Get_NationCode();
 };

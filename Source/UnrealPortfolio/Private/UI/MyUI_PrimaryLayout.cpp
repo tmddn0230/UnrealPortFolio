@@ -93,7 +93,8 @@ UMyUI_PageBase* UMyUI_PrimaryLayout::Open_Page(const FName& InName, bool InPopup
 			}
 		}
 	}
-	return 0;
+
+	return nullptr;
 }
 
 UMyUI_PageBase* UMyUI_PrimaryLayout::Inter_Open_Page(const FName& InName, TSubclassOf<UUserWidget> UserWidgetClass, APlayerController* InPC, UUserWidget* InConnection)

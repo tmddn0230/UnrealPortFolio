@@ -8,6 +8,19 @@
 #include "Serialization/JsonSerializer.h" //Json
 #include "JsonObjectConverter.h" // JsonUtilities
 
+template <typename StructType>
+void UJsonFunctionLib::GetJsonStringFromStruct(StructType FilledStruct, FString& StringOutput) {
+	FJsonObjectConverter::UStructToJsonObjectString(StructType::StaticStruct(), &FilledStruct, StringOutput, 0, 0);
+}
+
+template <typename StructType>
+void UJsonFunctionLib::GetStructFromJsonString(FHttpResponsePtr Response, StructType& StructOutput) {
+	StructType StructData;
+	FString JsonString = Response->GetContentAsString();
+	FJsonObjectConverter::JsonObjectStringToUStruct<StructType>(JsonString, &StructOutput, 0, 0);
+}
+
+
 TSharedPtr<FJsonObject> UJsonFunctionLib::ReadJson(FString JsonFilePath, bool& bOutSuccess, FString& OutInfoMessage)
 {
 	//Try to read file 

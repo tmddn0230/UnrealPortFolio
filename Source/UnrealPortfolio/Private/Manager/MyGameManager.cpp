@@ -7,6 +7,8 @@
 // Common
 #include "Common/MyConfig.h"
 #include "Common/MyRpcCommon.h"
+// Data
+#include "Data/MyModeDefinition.h"
 // Manager
 #include "Data/MyTableManager.h"
 
@@ -84,8 +86,10 @@ bool UMyGameManager::IsInitialzied()
 	if (!bInitialized)
 		return false;
 
-	// Mode 관련 코드 추후 작성
-	return true;
+	if (!ModeDefinition) {
+		//ModeDefinition = UMyAssetManager::Get().Load_ModeDefinition();
+	}
+	return ModeDefinition ? true : false;
 }
 
 void UMyGameManager::Quit_Program()

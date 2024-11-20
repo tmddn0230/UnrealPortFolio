@@ -18,12 +18,8 @@ FString UMyConfig::Device_Name;
 int32   UMyConfig::Device_Index;
 
 // Url
-FString UMyConfig::ListenUrl;
-FString UMyConfig::WebServerUrl;
-FString UMyConfig::WebScenarioUrl;
-FString UMyConfig::WebReplayUploadUrl;
-FString UMyConfig::WebReplayDownloadUrl;
-FString UMyConfig::WebLogUrl;
+FString UMyConfig::ListenIP;
+FString UMyConfig::HttpBaseURL;
 
 // Socket
 FString UMyConfig::TCPSocketIP;
@@ -64,7 +60,7 @@ void UMyConfig::Deinitialize()
 
 bool UMyConfig::LoadXMLFile()
 {
-	FString file_path = TEXT("TrainingData/IpConfig/RtIpConfig.xml");
+	FString file_path = TEXT("TrainingData/IpConfig/MyIpConfig.xml");
 	FString directory;
 	if (GIsEditor) {
 		directory = FPaths::ProjectDir();
@@ -86,21 +82,24 @@ bool UMyConfig::LoadXMLFile()
 	}
 
 
+
 	const TArray<FXmlNode*>& Nodes = XmlFile.GetRootNode()->GetChildrenNodes();
 	for (int i = 0; i < Nodes.Num(); i++)
 	{
 		const FString& TempTag = Nodes[i]->GetTag();
 		const FString& TempString = Nodes[i]->GetContent();
-		Setting_From_xmlFile(TempTag, TempString);
+		PlayInitSettings = Setting_From_xmlFile(TempTag, TempString);
 	}
-
 	return true;
 }
 
-void UMyConfig::Setting_From_xmlFile(const FString& TempTag, const FString& TempString)
+FPlayInitSetting UMyConfig::Setting_From_xmlFile(const FString& TempTag, const FString& TempString)
 {
+	FPlayInitSetting Infos;
+
 	if (TempTag == TEXT("ServerIp")) {
-		ListenUrl = TempString;
+		ListenIP = TempString;
+		Infos.Set_ServerId(TempString);
 	}
 	else if (TempTag == TEXT("TCPSocketIp")) {
 		TCPSocketIP = TempString;
@@ -108,25 +107,16 @@ void UMyConfig::Setting_From_xmlFile(const FString& TempTag, const FString& Temp
 	else if (TempTag == TEXT("UDPSocketIp")) {
 		UDPSocketIP = TempString;
 	}
-	else if (TempTag == TEXT("WebMainUrl")) {
-		WebServerUrl = TempString;
-	}
-	else if (TempTag == TEXT("WebDownUrl")) {
-		WebScenarioUrl = TempString;
-	}
-	else if (TempTag == TEXT("WebRepUpUrl")) {
-		WebReplayUploadUrl = TempString;
-	}
-	else if (TempTag == TEXT("WebRepDnUrl")) {
-		WebReplayDownloadUrl = TempString;
-	}
-	else if (TempTag == TEXT("WebLogUrl")) {
-		WebLogUrl = TempString;
+	else if (TempTag == TEXT("HttpBaseURL")) {
+		HttpBaseURL = TempString;
 	}
 	else if (TempTag == TEXT("NationCode")) {
 
 		NationCode = FCString::Atoi(*TempString);
+		Infos.NationCode = NationCode;
 	}
+
+	return Infos;
 }
 
 void UMyConfig::LoadINIFile()
@@ -174,4 +164,9 @@ void UMyConfig::Setting_From_InitFile(const FString& InIni, bool InUseDefaultVau
 const FName& UMyConfig::Get_ServerLevel()
 {
 	return PlayInitSettings.ServerIptoName;
+}
+
+const int32 UMyConfig::Get_NationCode()
+{
+	return PlayInitSettings.NationCode;
 }
