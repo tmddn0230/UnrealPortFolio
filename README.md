@@ -8,9 +8,9 @@
 UPrimaryDataAsset 을 상속 받은 클래스에 플레이 모드선언
 
 UAssetManager 를 상속 받은 MyAssetManager 를 통해 PrimaryAssetType 의 게임 에셋을 비동기 로드 한다.
-
+:computer: 코드 예시
 <details>
-<summary>클릭하여 펼치기</summary>
+<summary>MAssetManager</summary>
 
 ```cpp
 void UMyAssetManager::Preload_ModeDefinition(FStreamableDelegate DelegateToCall)
