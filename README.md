@@ -3,6 +3,9 @@
 
 
 
+
+
+
 # <u>데이터 관련</u>
 
 플레이 타입에 따른 게임 에셋 로드 
@@ -110,4 +113,104 @@ UObject* UMyAssetManager::Get_Asset(const FName InAssetName, bool bLogWarning)
 
 
 </details>
+
+
+# <u>네트워크 관련</u>
+
+HttpRequest 클라이언트 모델
+- 로그인
+- 
+
+:computer: 코드 예시
+
+<details>
+<summary>MyHttpManaer</summary>
+
+URL, Verb , Header 와 같이 반복되는 작업
+
+```cpp
+TSharedRef<IHttpRequest, ESPMode::ThreadSafe> UMyHttpManager::SetRequestOptions(const FString& URL)
+{
+	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = FHttpModule::Get().CreateRequest();
+
+	Request->SetURL(URL);
+	Request->SetVerb("POST");
+	Request->SetHeader("Content-Type", TEXT("application/x-www-form-urlencoded"));
+
+	return Request;
+}
+```
+
+Request에 적용할 Json String 을 만드는 코드도 많이 중복되어 나오기 때문에 따로 작성
+
+```cpp
+
+FString UMyHttpManager::GetContentString(const TSharedRef<FJsonObject>& requestObj )
+{
+	FString RequestBody;
+	TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&RequestBody);
+	FJsonSerializer::Serialize(requestObj, Writer);
+
+	return RequestBody;
+}
+```
+
+전체 로그인 코드 
+
+```cpp
+
+void UMyHttpManager::Login(const FString& InID, const FString& InPassword)
+{
+	// Main
+	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> UserRequest = SetRequestOptions(MainURL);
+	UserRequest->OnProcessRequestComplete().BindUObject(this, &UMyHttpManager::OnResponse_Login);
+
+	TSharedRef<FJsonObject> RequestObj = MakeShared<FJsonObject>();
+
+	RequestObj->SetStringField("protocol", FString::FromInt((int32)EWebProtocolType::webLogin));
+	RequestObj->SetStringField("account", InID);
+	RequestObj->SetStringField("pass", InPassword);
+
+	UserRequest->SetContentAsString(GetContentString(RequestObj));
+	UserRequest->ProcessRequest();
+
+	UE_LOG(LogMyHttpManager, Warning, TEXT("Login Request Called"));
+}
+
+void UMyHttpManager::OnResponse_Login(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+{
+	if (Response == nullptr) return;
+	if (!bWasSuccessful) return;
+
+	TSharedPtr<FJsonObject> JsonObject;
+
+	TSharedRef<TJsonReader<>> jsonReader = TJsonReaderFactory<>::Create(Response->GetContentAsString());
+
+	// Try to convert string to json object. Output goes in RetJsonObject
+	if (FJsonSerializer::Deserialize(jsonReader, JsonObject))
+	{
+		int32 protocol;
+		if (JsonObject->TryGetNumberField(TEXT("protocol"), protocol))
+		{
+			UE_LOG(LogMyHttpManager, Log, TEXT("Protocol : %d"), protocol);
+		}
+
+		TSharedPtr<FJsonObject> ResultObject;
+		FString Result = JsonObject->GetStringField("result");
+		TSharedRef<TJsonReader<>> resultReader = TJsonReaderFactory<>::Create(Result);
+
+		if (FJsonSerializer::Deserialize(resultReader, ResultObject))
+		{
+			// Get Login Result
+			int32 ResultValue = ResultObject->GetIntegerField(TEXT("RESULT"));
+			// Process Login On Widget
+			Handle_LoginCheck.Broadcast(ResultValue);
+		}
+	}
+}
+```
+
+</details>
+
+
 
