@@ -6,6 +6,8 @@
 플레이 타입에 따른 게임 에셋 로드 
 ![image](https://github.com/user-attachments/assets/3756b4c3-7c99-47a4-85cb-4c32631ef8e9)
 
+
+
 UPrimaryDataAsset 을 상속 받은 클래스에 플레이 모드선언
 
 UAssetManager 를 상속 받은 MyAssetManager 를 통해 PrimaryAssetType 의 게임 에셋을 비동기 로드 한다.
