@@ -11,3 +11,9 @@ UAssetManager 를 상속 받은 MyAssetManager 를 통해 PrimaryAssetType 의 �
 ![image](https://github.com/user-attachments/assets/31f44fea-bdaf-4ebd-a1b1-30448f20300b)
 ![image](https://github.com/user-attachments/assets/7ff28a72-3723-490f-a647-450bec9e4faf)
 
+```cpp
+int main() {
+    std::cout << "Hello, World!" << std::endl;
+    return 0;
+}
+```
