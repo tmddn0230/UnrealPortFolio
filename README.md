@@ -12,6 +12,44 @@ UAssetManager 를 상속 받은 MyAssetManager 를 통해 PrimaryAssetType 의 �
 :computer: 코드 예시
 
 <details>
+<summary>MyPrimayDataAsset</summary>
+	
+```cpp
+	UCLASS()
+class UNREALPORTFOLIO_API UMyModeDefinition : public UPrimaryDataAsset
+{
+	GENERATED_BODY()
+	
+public:
+	UPROPERTY(EditAnywhere)
+	FMyModeInfo SingleMode;
+
+	UPROPERTY(EditAnywhere)
+	FMyModeInfo ControlMode;
+
+	UPROPERTY(EditAnywhere)
+	FMyModeInfo ClientMode;
+
+	UPROPERTY(EditAnywhere)
+	FMyModeInfo ObserveMode;
+	
+	UPROPERTY(EditAnywhere)
+	FMyModeInfo ServerMode;
+
+	UPROPERTY(EditAnywhere)
+	FMyModeInfo ReplayMode;
+
+	UPROPERTY(EditAnywhere)
+	FMyModeInfo DefaultMode;
+public:
+	FName Get_UI(EUP_PlayType InPlayType);
+	const FMyModeInfo& Get_Mode(EUP_PlayType InPlayType);
+	
+};
+```
+</details>
+
+<details>
 <summary>MAssetManager</summary>
 
 ```cpp
