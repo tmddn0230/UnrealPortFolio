@@ -34,14 +34,72 @@ HUD
 ## <u>File I/O</u>
 
 XML 파일 읽기
+<details>
+<summary>MyConfig</summary>
+	
+```cpp
+
+```
+</details>
 
 JSON 파일 읽기 & 쓰기 
+<details>
+<summary>MyJsonLibFunction</summary>
+	
+```cpp
 
+```
+</details>
 
+## <u>음성채팅 및 녹음, 리플레이</u>
 
+Voice Chat with UDP
+<details>
+<summary>MyVoiceManager</summary>
+	
+```cpp
 
+```
+</details>
+
+Voice Recording 
+<details>
+<summary>MyVoiceManager</summary>
+	
+```cpp
+
+```
+</details>
+
+Voice Mixing 
+<details>
+<summary>MyReplayManager</summary>
+	
+```cpp
+
+```
+</details>
 
 ## <u>데이터 관련</u>
+
+DataTable 사용
+<details>
+<summary>MyTableRows</summary>
+	
+```cpp
+
+```
+</details>
+
+<details>
+<summary>MyTableManager</summary>
+	
+```cpp
+
+```
+</details>
+
+
 
 플레이 타입에 따른 게임 에셋 로드 
 
