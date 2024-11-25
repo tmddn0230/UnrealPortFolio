@@ -1,12 +1,47 @@
 # UnrealPortFolio
 언리얼엔진 5.1 프로젝트 포트폴리오 입니다.
 
+## <u>UI Widget</u>
+
+Primary Widget 
+<details>
+<summary>MyUI_PrimayLayout</summary>
+	
+```cpp
+
+```
+</details>
+
+Page Widget 
+<details>
+<summary>MyUI_PageBase</summary>
+	
+```cpp
+
+```
+</details>
+
+HUD
+<details>
+<summary>MyGameHUD</summary>
+	
+```cpp
+
+```
+</details>
+
+
+## <u>File I/O</u>
+
+XML 파일 읽기
+
+JSON 파일 읽기 & 쓰기 
 
 
 
 
 
-# <u>데이터 관련</u>
+## <u>데이터 관련</u>
 
 플레이 타입에 따른 게임 에셋 로드 
 
@@ -115,11 +150,10 @@ UObject* UMyAssetManager::Get_Asset(const FName InAssetName, bool bLogWarning)
 </details>
 
 
-# <u>네트워크 관련</u>
+## <u>네트워크 관련</u>
 
 HttpRequest 클라이언트 모델
-- 로그인
-- 
+- 로그인 
 
 :computer: 코드 예시
 
