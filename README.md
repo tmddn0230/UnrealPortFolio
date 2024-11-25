@@ -83,6 +83,9 @@ Voice Mixing
 ## <u>데이터 관련</u>
 
 DataTable 사용
+
+:computer: 코드 예시
+
 <details>
 <summary>MyTableRows</summary>
 	
@@ -212,6 +215,7 @@ UObject* UMyAssetManager::Get_Asset(const FName InAssetName, bool bLogWarning)
 
 HttpRequest 클라이언트 모델
 - 로그인 
+- 파일 업, 다운로드
 
 :computer: 코드 예시
 
