@@ -28,10 +28,11 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	// Get
-	AMyGameMode*    Get_GameMode();         // for Only Server
-	AMyGameHUD*     Get_HUD();
-	AMyPlayerState* Get_PlayerState();
-	EUP_PlayType    Get_PlayType();
+	AMyGameMode*                        Get_GameMode(); // for Only Server
+	AMyGameHUD*                         Get_HUD();
+	AMyPlayerState*                     Get_PlayerState();
+	EUP_PlayType                        Get_PlayType();
+	TWeakObjectPtr<UMyUI_PrimaryLayout> Get_PrimaryLayout();
 
 	// UI
 	UMyUI_PageBase* Open_Page(const FName& InName);

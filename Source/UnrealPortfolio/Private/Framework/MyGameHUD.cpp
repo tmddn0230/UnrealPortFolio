@@ -105,6 +105,7 @@ bool AMyGameHUD::Close_Popup(UMyUI_PageBase* InPage)
 
 void AMyGameHUD::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
+	Super::EndPlay(EndPlayReason);
 }
 
 UMyGameManager* AMyGameHUD::Get_GameManager()
