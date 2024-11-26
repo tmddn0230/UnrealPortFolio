@@ -29,3 +29,7 @@ void FTraineeInfo_Login::Set_Options(const FString& option_p)
 	DeviceName     = UGameplayStatics::ParseOption(option_p, MyString_Option::DeviceName);
 	DeviceId       = UGameplayStatics::ParseOption(option_p, MyString_Option::DeviceId);
 }
+
+FDeviceInfo          FDeviceInfo::Defualt;
+TArray<FDeviceInfo>  FDeviceInfo::DefualtArray;
+TArray<FTraineeInfo> FTraineeInfo::DefualtArray;

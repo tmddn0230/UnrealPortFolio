@@ -11,6 +11,7 @@
 class AMyPlayerController;
 class AMyPlayerState;
 class AMyGameState;
+class UMyGameManager;
 
 UCLASS()
 class UNREALPORTFOLIO_API AMyGameMode : public AMyGameModeBase
@@ -42,9 +43,11 @@ public:
 	bool                  Get_LoginInfo(AMyPlayerController* InPlayerController, FTraineeInfo_Login& OutPreLoginInfo);
 	TArray<FDeviceInfo>&  Get_DeviceArray();
 	TArray<FTraineeInfo>& Get_TraineeArray();
-
+	UMyGameManager*       Get_GameManager();
 	// Update
+	void SC_DeviceInfo();
 	void SC_DeviceInfo(int32 InId);
+	void SC_TraineeInfo();
 	void SC_TraineeInfo(int32 InId);
 
 	// Add, KickPlayer

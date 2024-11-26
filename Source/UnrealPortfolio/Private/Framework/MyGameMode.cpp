@@ -15,6 +15,7 @@
 #include "Manager/MyGameManager.h"
 //Common
 #include "Common/MyBlueprintAssetPath.h"
+#include "Common/MyRpcCommon.h"
 
 AMyGameMode::AMyGameMode(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -129,11 +130,24 @@ TArray<FTraineeInfo>& AMyGameMode::Get_TraineeArray()
 	return FTraineeInfo::DefualtArray;
 }
 
+UMyGameManager* AMyGameMode::Get_GameManager()
+{
+	return nullptr;
+}
+
+void AMyGameMode::SC_DeviceInfo()
+{
+}
+
 void AMyGameMode::SC_DeviceInfo(int32 InId)
 {
 	if (auto* player = Get_PlayerController(InId)) {
 		player->Client_Update_DeviceInfo(Get_DeviceArray());
 	}
+}
+
+void AMyGameMode::SC_TraineeInfo()
+{
 }
 
 void AMyGameMode::SC_TraineeInfo(int32 InId)
@@ -147,20 +161,20 @@ AMyPlayerController* AMyGameMode::ExistDevice(APlayerController* NewPlayer)
 {
 	if (AMyPlayerController* player = Cast<AMyPlayerController>(NewPlayer)) {
 		FDeviceInfo NewPlayerInfo;
-		if (player->Get_DeviceInfo(NewPlayerInfo)) {
-			for (auto* temp_player : Trainee_Array) {
-				if (temp_player) {
-					if (auto* ps = temp_player->Get_PlayerState()) {
-						FDeviceInfo OutInfo;
-						if (player->Get_DeviceInfo(OutInfo)) {
-							if (OutInfo.Name.Equals(NewPlayerInfo.Name)) {
-								return temp_player;
-							}
-						}
-					}
-				}
-			}
-		}
+		//if (player->Get_DeviceInfo(NewPlayerInfo)) {
+		//	for (auto* temp_player : Trainee_Array) {
+		//		if (temp_player) {
+		//			if (auto* ps = temp_player->Get_PlayerState()) {
+		//				FDeviceInfo OutInfo;
+		//				if (player->Get_DeviceInfo(OutInfo)) {
+		//					if (OutInfo.Name.Equals(NewPlayerInfo.Name)) {
+		//						return temp_player;
+		//					}
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
 	}
 	return nullptr;
 }
@@ -328,8 +342,8 @@ void AMyGameMode::HandleStartingNewPlayer_Implementation(APlayerController* NewP
 {
 	Super::HandleStartingNewPlayer_Implementation(NewPlayer);
 
-	auto* game_manager = GetGameManager();
-	if (game_manager && game_manager->Is_Play_Type(EUP_PlayType::E_Server)) {
+	auto* game_manager = Get_GameManager();
+	if (game_manager && (game_manager->Get_PlayType() == EUP_PlayType::E_Server)) {
 
 		//Handling duplicate device logins
 		auto exist_devices = ExistDeviceAll(NewPlayer);
