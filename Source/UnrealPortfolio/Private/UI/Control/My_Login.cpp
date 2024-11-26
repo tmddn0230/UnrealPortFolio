@@ -6,6 +6,12 @@
 #include "Kismet/GameplayStatics.h"
 // Network
 #include "Network/MyHttpManager.h"
+// Common
+#include "Common/MyConfig.h"
+
+#include "Internationalization/StringTable.h"
+#include "Internationalization/StringTableCore.h"
+//#include "Internationalization/StringTableRegistry.h"
 
 
 void UMy_Login::NativeOnInitialized()
@@ -15,6 +21,30 @@ void UMy_Login::NativeOnInitialized()
 	if (Login_Btn) {
 		Login_Btn->OnClicked.AddDynamic(this, &UMy_Login::OnClicked_Login);
 	}
+
+	UStringTable* ControlStringTable = LoadObject<UStringTable>(nullptr, *UMyConfig::ControlMainPath);
+	UStringTable* ErrorMsgBoxTable =   LoadObject<UStringTable>(nullptr, *UMyConfig::ErrorMsgPath);
+	if (ControlStringTable == nullptr) return;
+	if (ErrorMsgBoxTable == nullptr) return;
+	if (Account_text && Password_text && Errorbox_text && Login_text && Quit_text) {
+
+		FString OUTPUT;
+		ControlStringTable->GetMutableStringTable().Get().GetSourceString(FTextKey("Account"), OUTPUT);
+		Account_text->SetText(FText::FromString(OUTPUT));
+
+		ControlStringTable->GetMutableStringTable().Get().GetSourceString(FTextKey("Password"), OUTPUT);
+		Password_text->SetText(FText::FromString(OUTPUT));
+
+		ErrorMsgBoxTable->GetMutableStringTable().Get().GetSourceString(FTextKey("LogError"), OUTPUT);
+		Errorbox_text->SetText(FText::FromString(OUTPUT));
+
+		ControlStringTable->GetMutableStringTable().Get().GetSourceString(FTextKey("Login"), OUTPUT);
+		Login_text->SetText(FText::FromString(OUTPUT));
+
+		ControlStringTable->GetMutableStringTable().Get().GetSourceString(FTextKey("Quit"), OUTPUT);
+		Quit_text->SetText(FText::FromString(OUTPUT));
+	}
+
 }
 
 

@@ -121,7 +121,8 @@ bool AMyGameModeBase::FindInactivePlayer(APlayerController* PC)   // 플레이어 재
 			i--;
 		}
 		else if ((bUseUniqueIdCheck && (CurrentPlayerState->GetUniqueId() == PC->PlayerState->GetUniqueId())) ||
-			(!bUseUniqueIdCheck && bHasValidNetworkAddress && (FCString::Stricmp(*CurrentPlayerState->SavedNetworkAddress, *NewNetworkAddress) == 0) && (FCString::Stricmp(*CurrentPlayerState->GetPlayerName(), *NewName) == 0)))
+			(!bUseUniqueIdCheck && bHasValidNetworkAddress && (FCString::Stricmp(*CurrentPlayerState->SavedNetworkAddress, *NewNetworkAddress) == 0) 
+				&& (FCString::Stricmp(*CurrentPlayerState->GetPlayerName(), *NewName) == 0)))
 		{
 			// found it!
 			// 이전의 기록을 삭제하고 새로 초기화

@@ -146,6 +146,17 @@ bool SendWorker_T::Init()
 	}
 }
 
+
+void SendWorker_T::Exit()
+{
+	bRun = false;
+}
+
+void SendWorker_T::Destroy()
+{
+	bRun = false;
+}
+
 uint32 SendWorker_T::Run()
 {
 	while (bRun)
@@ -164,10 +175,6 @@ uint32 SendWorker_T::Run()
 	return 0;
 }
 
-void SendWorker_T::Exit()
-{
-	bRun = false;
-}
 
 bool SendWorker_T::SendPacket(SendBuffer_TRef SendBuffer)
 {
@@ -177,10 +184,6 @@ bool SendWorker_T::SendPacket(SendBuffer_TRef SendBuffer)
 	return true;
 }
 
-void SendWorker_T::Destroy()
-{
-	bRun = false;
-}
 
 bool SendWorker_T::SendDesiredBytes(const uint8* Buffer, int32 Size)
 {

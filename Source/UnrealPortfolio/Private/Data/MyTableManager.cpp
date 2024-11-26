@@ -12,21 +12,6 @@ if (Object_##table_value.Succeeded() && Object_##table_value.Object != nullptr) 
 	table_value = Object_##table_value.Object;	\
 }
 
-UMyTableManager::UMyTableManager()
-{
-
-}
-
-void UMyTableManager::Initialize(FSubsystemCollectionBase& Collection)
-{
-
-}
-
-void UMyTableManager::Deinitialize()
-{
-
-}
-
 FMyTableRow_UI* UMyTableManager::Get_UI(const FName& row_name)
 {
 	FMyTableRow_UI* OutRow = Widget_Table->FindRow<FMyTableRow_UI>(row_name, "");
@@ -45,4 +30,20 @@ TSubclassOf<UUserWidget> UMyTableManager::Get_UI_Widget(const FName& row_name)
 		return table_row->WidgetClass;
 	}
 	return nullptr;
+}
+
+
+UMyTableManager::UMyTableManager()
+{
+
+}
+
+void UMyTableManager::Initialize(FSubsystemCollectionBase& Collection)
+{
+
+}
+
+void UMyTableManager::Deinitialize()
+{
+
 }

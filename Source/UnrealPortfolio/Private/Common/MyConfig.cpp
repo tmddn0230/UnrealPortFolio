@@ -60,6 +60,7 @@ void UMyConfig::Deinitialize()
 
 bool UMyConfig::LoadXMLFile()
 {
+	// 읽을 XML 파일의 위치
 	FString file_path = TEXT("TrainingData/IpConfig/MyIpConfig.xml");
 	FString directory;
 	if (GIsEditor) {
@@ -88,6 +89,7 @@ bool UMyConfig::LoadXMLFile()
 	{
 		const FString& TempTag = Nodes[i]->GetTag();
 		const FString& TempString = Nodes[i]->GetContent();
+		// 각 노드의 값을 변수로
 		PlayInitSettings = Setting_From_xmlFile(TempTag, TempString);
 	}
 	return true;

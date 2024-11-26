@@ -86,6 +86,7 @@ void UMyHttpManager::OnResponse_Login(FHttpRequestPtr Request, FHttpResponsePtr 
 			// Get Login Result
 			int32 ResultValue = ResultObject->GetIntegerField(TEXT("RESULT"));
 			// Process Login On Widget
+			// 연결된 델리게이트를 이용하여 다음 Page 의 Widget 을 Open 합니다.
 			Handle_LoginCheck.Broadcast(ResultValue);
 		}
 	}
