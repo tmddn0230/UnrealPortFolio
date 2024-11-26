@@ -44,6 +44,7 @@ public:
 	//Get
 	EUP_PlayType     Get_PlayType() { return Play_Type; }
 	UMyTableManager* Get_TableManager();
+	EUP_GameMode     Get_Current_GameMode() { return Current_GameMode; }
 
 	// Main Flow
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;

@@ -11,15 +11,19 @@
 
 #include "MyCharacter.generated.h"
 
-// class 
-class UMyNetworkManager;
-
+// Voice
 class UAudioComponent;
 class USoundWaveProcedural;
 class IVoiceCapture;
 class IVoiceEncoder;
 class IVoiceDecoder;
 enum class EAudioEncodeHint : uint8;
+// Manager
+class UMyNetworkManager;
+class UMyReplayManager;
+// RumtimeAudioImporter
+class UCapturableSoundWave;
+
 
 // Define
 #define VOICE_MAX_COMPRESSED_BUFFER 20 * 1024
@@ -82,16 +86,16 @@ private:
 ========================================================================================================
 */
 	// udp
-	class UMyNetworkManager* netmgr;
+	UMyNetworkManager* netmgr;
 	// rep
-	//class UMyReplayManager* repmgr;
+	UMyReplayManager* repmgr;
 
 	FString VoiceFileName;
 	int32 rep_TID;
 	int32 rep_UID;
 public:
-	//UPROPERTY()
-	//class UCapturableSoundWave* CapturableSoundWave;
+	UPROPERTY()
+    UCapturableSoundWave* CapturableSoundWave;
 
 	
 public:
@@ -145,7 +149,6 @@ public:
 	FTimerHandle DequeHandler;
 	void VoiceCaptureTick();
 
-	//UMyReplayManager* GetRepManager() { return repmgr; }
 
 /*
 ========================================================================================================

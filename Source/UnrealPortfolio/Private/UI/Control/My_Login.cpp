@@ -8,7 +8,8 @@
 #include "Network/MyHttpManager.h"
 // Common
 #include "Common/MyConfig.h"
-
+// Framework
+#include "Framework/MyGameHUD.h"
 #include "Internationalization/StringTable.h"
 #include "Internationalization/StringTableCore.h"
 //#include "Internationalization/StringTableRegistry.h"
@@ -67,6 +68,28 @@ void UMy_Login::OnClicked_Login()
 	{
 		UE_LOG(LogTemp, Error, TEXT(" Invalid Web Subsystem !! "));
 		return;
+	}
+}
+
+void UMy_Login::OnClicekd_Quit()
+{
+	// 정말 종료하시겠습니까? 팝업 창 
+	if (auto* hud = Get_HUD()) {
+		FMyDele_MessageResult ResultCallback = FMyDele_MessageResult::CreateLambda([this](EUP_MessageResult ConfirmationResult) {
+			if (ConfirmationResult == EUP_MessageResult::Confirmed) {
+				// TODO :
+				// 확인 버튼을 눌렀을 때 처리할 코드
+			}
+			else if (ConfirmationResult == EUP_MessageResult::Cancelled) {
+				// TODO :
+				// 취소 버튼을 눌렀을 때 처리할 코드
+			}
+			else {
+				// TODO : 
+				// 기타
+			}
+			});
+		hud->OpenMsgBox_Popup("AssignedTrainee", ResultCallback);
 	}
 }
 

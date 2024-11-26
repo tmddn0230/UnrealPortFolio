@@ -21,6 +21,7 @@ class UNREALPORTFOLIO_API UMy_Login : public UMyUI_PageBase
 
 public:
 	UPROPERTY(meta = (BindWidget))	UButton* Login_Btn;
+	UPROPERTY(meta = (BindWidget))	UButton* Quit_Btn;
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)  UEditableText* UserID_var;
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)  UEditableText* Password_var;
 
@@ -34,7 +35,7 @@ public:
 public:
 	// Func
 	UFUNCTION() void OnClicked_Login();
-
+	UFUNCTION() void OnClicekd_Quit();
 protected:
 	virtual void NativeOnInitialized() override;
 	void CheckLogin(int32 Result);

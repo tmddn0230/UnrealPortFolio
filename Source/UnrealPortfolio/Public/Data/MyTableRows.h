@@ -39,6 +39,11 @@ struct FTableRow_MessageBox : public FTableRowBase
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "UnrealPortfolio")	FText Body;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "UnrealPortfolio")	FString DebugText;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "UnrealPortfolio")	TArray<FMessageBoxButtonAction> ButtonArray;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "UnrealPortfolio")   UTexture2D* Texture_Normal;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "UnrealPortfolio")   UTexture2D* Texture_Hover;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "UnrealPortfolio")   UTexture2D* Texture_Cancel;
+
 };
 
 class UNREALPORTFOLIO_API MyTableRows

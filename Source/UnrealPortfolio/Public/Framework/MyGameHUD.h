@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
+// Common
+#include "Common/MyCommon.h" // for Delegate
 #include "MyGameHUD.generated.h"
 
 class UMyGameManager;
@@ -34,7 +36,7 @@ public:
 	// Open
 	/*
 	* 이벤트 기반 프로그래밍 패턴 : ps 설정 시 알림받기
-	* 네트워크의 문제로 지연이 길어질 때도 문제없이 안전하게 초기화 작동할 수 있음. 콜백 구조니까
+	* 네트워크의 문제로 지연이 길어질 때도 콜백 구조로 안전하게 초기화 작동할 수 있음. 
 	*/
 	void RegisterExtensionPointForPlayerState(UMyLocalPlayer* InLocalPlayer, APlayerState* InPlayerState);
 	void Open_HUDWidget();
@@ -43,7 +45,7 @@ public:
 	bool             Init_PrimaryLayer();
 	UMyUI_PageBase*  Open_Page(const FName& InName, bool InPopup);
 	bool             Close_Popup(UMyUI_PageBase* InPage);
-
+	void             OpenMsgBox_Popup(const FName& InNmae, FMyDele_MessageResult ResultCallback);
 
 protected:
 	virtual void BeginPlay() override;

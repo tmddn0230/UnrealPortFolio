@@ -3,19 +3,19 @@
 
 #include "Framework/MyCharacter.h"
 #include "Components/AudioComponent.h"
-
 #include "Network/MyNetworkManager.h"
 #include "OnlineSubsystemUtils.h"
 #include "VoiceModule.h"
 #include "Voice.h"
 #include "Sound/SoundWaveProcedural.h"
-
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
 
-//#include "Sound/CapturableSoundWave.h"
-//#include "RuntimeAudioImporterLibrary.h"
-//#include "RuntimeAudioExporter.h"
+#include "Replay/MyReplayManager.h"
+
+#include "Sound/CapturableSoundWave.h"
+#include "RuntimeAudioImporterLibrary.h"
+#include "RuntimeAudioExporter.h"
 
 #if !UE_BUILD_SHIPPING
 #define VOICE_BUFFER_CHECK(Buffer, Size) \
@@ -162,13 +162,13 @@ void AMyCharacter::InitVoiceDecoder()
 
 void AMyCharacter::InitReplayManager()
 {
-	//auto* gi = GetGameInstance();
-	//if (gi) {
-	//	repmgr = gi->GetSubsystem<UMyReplayManager>();
-	//	if (repmgr) {
-	//		repmgr->InitManager();
-	//	}
-	//}
+	auto* gi = GetGameInstance();
+	if (gi) {
+		repmgr = gi->GetSubsystem<UMyReplayManager>();
+		if (repmgr) {
+			//repmgr->InitManager();
+		}
+	}
 }
 
 void AMyCharacter::Shutdown()
@@ -425,72 +425,79 @@ void AMyCharacter::VoiceCaptureTick()
 
 void AMyCharacter::StartCapture()
 {
-	//if (CapturableSoundWave == nullptr) {
-	//	CapturableSoundWave = NewObject<UCapturableSoundWave>();
-	//	CapturableSoundWave->CreateCapturableSoundWave();
-	//}
-	//
-	//if (CapturableSoundWave) {
-	//	//GEngine->AddOnScreenDebugMessage(-1, 0.5f, FColor::Yellow, TEXT(" CapturableSoundWave Create "));
-	//}
-	//else
-	//{
-	//	//GEngine->AddOnScreenDebugMessage(-1, 0.5f, FColor::Red, TEXT(" CapturableSoundWave Create Failed"));
-	//	return;
-	//}
-	//
-	//// Device Number : 0
-	//if (CapturableSoundWave->StartCapture(0))
-	//{
-	//	//GEngine->AddOnScreenDebugMessage(-1, 0.5f, FColor::Yellow, TEXT(" CapturableSoundWave Start "));
-	//}
+	if (CapturableSoundWave == nullptr) {
+		CapturableSoundWave = NewObject<UCapturableSoundWave>();
+		CapturableSoundWave->CreateCapturableSoundWave();
+	}
+	
+	if (CapturableSoundWave) {
+		GEngine->AddOnScreenDebugMessage(-1, 0.5f, FColor::Yellow, TEXT(" CapturableSoundWave Create "));
+	}
+	else {
+		GEngine->AddOnScreenDebugMessage(-1, 0.5f, FColor::Red, TEXT(" CapturableSoundWave Create Failed"));
+		return;
+	}
+	
+	// Device Number : 0
+	if (CapturableSoundWave->StartCapture(0)) {
+		GEngine->AddOnScreenDebugMessage(-1, 0.5f, FColor::Yellow, TEXT(" CapturableSoundWave Start "));
+	}
 }
 
 void AMyCharacter::RestartCapture()
 {
-	//if (CapturableSoundWave)
-	//{
-	//	CapturableSoundWave->StopCapture();
-	//}
+	if (CapturableSoundWave) {
+		CapturableSoundWave->StopCapture();
+	}
+
+	StartCapture();
 }
 
 void AMyCharacter::ExportCapture(int TID, int UID, FString TraineeCode)
 {
-//	// Set Params for upload file
-//	rep_TID = TID;
-//	rep_UID = UID;
-//	VoiceFileName = TraineeCode;
-//
-//	if (CapturableSoundWave)
-//	{
-//		CapturableSoundWave->StopCapture();
-//
-//		URuntimeAudioExporter* RuntimeAudioExporter = NewObject<URuntimeAudioExporter>();
-//		if (RuntimeAudioExporter)
-//		{
-//			FOnAudioExportToFileResultNative result;
-//			result.BindUFunction(this, TEXT("FinishExportSound"));
-//			FRuntimeAudioExportOverrideOptions overrideoption;
-//			FString baseDir;
-//#if WITH_EDITOR
-//			baseDir = FPaths::ProjectDir();
-//#else
-//			baseDir = FPaths::LaunchDir();
-//#endif
-//			FString Directory_path = FString::Printf(TEXT("TrainingData/RecordingData/%d/%s.WAV"), TID, *TraineeCode);
-//			FString FilePath = baseDir + Directory_path;
-//			FPaths::MakeStandardFilename(FilePath);
-//
-//			RuntimeAudioExporter->ExportSoundWaveToFile(CapturableSoundWave, FilePath, ERuntimeAudioFormat::Wav, 100, overrideoption, result);
-//		}
-//	}
+	// Set Params for upload file
+	rep_TID = TID;
+	rep_UID = UID;
+	VoiceFileName = TraineeCode;
+
+	if (CapturableSoundWave)
+	{
+		CapturableSoundWave->StopCapture();
+
+		URuntimeAudioExporter* RuntimeAudioExporter = NewObject<URuntimeAudioExporter>();
+		if (RuntimeAudioExporter)
+		{
+			FOnAudioExportToFileResultNative result;
+			result.BindUFunction(this, TEXT("FinishExportSound"));
+			FRuntimeAudioExportOverrideOptions overrideoption;
+			FString baseDir;
+#if WITH_EDITOR
+			baseDir = FPaths::ProjectDir();
+#else
+			baseDir = FPaths::LaunchDir();
+#endif
+			FString Directory_path = FString::Printf(TEXT("TrainingData/RecordingData/%d/%s.WAV"), TID, *TraineeCode);
+			FString FilePath = baseDir + Directory_path;
+			FPaths::MakeStandardFilename(FilePath);
+
+			RuntimeAudioExporter->ExportSoundWaveToFile(CapturableSoundWave, FilePath, ERuntimeAudioFormat::Wav, 100, overrideoption, result);
+		}
+	}
 }
+
+
+
+
+
+
+
+
 
 void AMyCharacter::FinishExportSound()
 {
-	//if (repmgr) {
-	//	FString str_TID = FString::FromInt(rep_TID);
-	//	FString str_UID = FString::FromInt(rep_UID);
-	//	repmgr->Upload_VoiceFile(str_TID, str_UID, VoiceFileName);
-	//}
+	if (repmgr) {
+		FString str_TID = FString::FromInt(rep_TID);
+		FString str_UID = FString::FromInt(rep_UID);
+		//repmgr->Upload_VoiceFile(str_TID, str_UID, VoiceFileName);
+	}
 }

@@ -63,6 +63,8 @@ enum class EUP_MessageResult : uint8
 	Unknown UMETA(Hidden)
 };
 
+// EUP_MessageResult 밑에 있어야 함
+DECLARE_DELEGATE_OneParam(FMyDele_MessageResult, EUP_MessageResult /* Result */);
 
 ////////////////////////////////////////////////
 //////             Optitrack             //////

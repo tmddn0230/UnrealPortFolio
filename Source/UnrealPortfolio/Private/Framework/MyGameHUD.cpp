@@ -12,6 +12,8 @@
 #include "Manager/MyGameManager.h"
 // UI
 #include "UI/MyUI_PrimaryLayout.h"
+#include "UI/Common/My_MessageBox.h"
+
 
 AMyGameHUD::AMyGameHUD()
 {
@@ -101,6 +103,21 @@ bool AMyGameHUD::Close_Popup(UMyUI_PageBase* InPage)
 		return Primary_Layout.Get()->Close_Popup(InPage);
 	}
 	return false;
+}
+
+void AMyGameHUD::OpenMsgBox_Popup(const FName& InNmae, FMyDele_MessageResult ResultCallback)
+{
+	if (auto* gi = GetGameInstance()) {
+
+		if (auto* mgr = gi->GetSubsystem<UMyTableManager>()) {
+			if (auto* row = mgr->Get_MessageBox(InNmae)) {
+				// ConfirmPopup : Table 에 등록된 메시지출력, 확인용 팝업 위젯 , true : 마우스 커서 보임
+				if (UMy_MessageBox* page = Cast<UMy_MessageBox>(Open_Page("ConfirmPopup", true))) { 
+					page->Setup_Dialog(row, ResultCallback);
+				}
+			}
+		}
+	}
 }
 
 void AMyGameHUD::EndPlay(const EEndPlayReason::Type EndPlayReason)

@@ -15,9 +15,9 @@ public class UnrealPortfolio : ModuleRules
 			"InputCore",
 		    "UPCore",
             "UMG",
-            "Slate",  //Loading Screen
-            "SlateCore", //Loading Screen
-            "PreLoadScreen", //Loading Screen
+            "Slate",          //Loading Screen
+            "SlateCore",      //Loading Screen
+            "PreLoadScreen",  //Loading Screen
             "XmlParser",
             "GameplayAbilities",
             "GameplayTags",
@@ -34,9 +34,9 @@ public class UnrealPortfolio : ModuleRules
             "AudioMixer",
             "AudioCapture",
             "Voice",
-            "SpeechRecognition"
+            "SpeechRecognition",
+            "RuntimeAudioImporter"
             //"ZipUtility",
-            //"RuntimeAudioImporter"
         });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {

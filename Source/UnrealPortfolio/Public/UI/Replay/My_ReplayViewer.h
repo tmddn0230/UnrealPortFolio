@@ -28,8 +28,7 @@ class UNREALPORTFOLIO_API UMy_ReplayViewer : public UMyUI_PageBase
 public:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))	UButton* Sound_Btn_var;
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))   USlider* ReplaySlider_var;
-	//class UImportedSoundWave* ImportedSoundWave;
-	class USoundWave* ImportedSoundWave;
+	class UImportedSoundWave* ImportedSoundWave;
 
 private:
 	bool bIsPause = false;
