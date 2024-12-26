@@ -36,7 +36,8 @@ public class UnrealPortfolio : ModuleRules
             "Voice",
             "SpeechRecognition",
             "RuntimeAudioImporter",
-            "OpenAIAPI"
+            "OpenAIAPI",
+            "RuntimeSpeechRecognizer"
             //"ZipUtility",
         });
 
